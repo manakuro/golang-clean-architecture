@@ -1,0 +1,3 @@
+development:
+  driver: mysql
+  open: root:root@tcp(127.0.0.1:3307)/golang-clean-architecture

@@ -1,0 +1,9 @@
+database:
+  addr: 127.0.0.1:3307
+  user: root
+  password: root
+  net: tcp
+  dbname: golang-clean-architecture
+
+server:
+  address: 8080
