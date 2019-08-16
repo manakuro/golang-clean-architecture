@@ -1,9 +1,12 @@
 database:
-  addr: 127.0.0.1:3307
   user: root
   password: root
   net: tcp
+  addr: 127.0.0.1:3307
   dbname: golang-clean-architecture
+  allowNativePasswords: true
+  params:
+    parseTime: "true"
 
 server:
   address: 8080

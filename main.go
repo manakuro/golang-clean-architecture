@@ -6,40 +6,26 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
+
+	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
+
 	"github.com/manakuro/golang-clean-architecture/config"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/manakuro/golang-clean-architecture/domain/model"
 )
 
-func connectDB() *gorm.DB {
-	DBMS := "mysql"
-	mySqlConfig := &mysql.Config{
-		User:                 "root",
-		Passwd:               "root",
-		Net:                  "tcp",
-		Addr:                 "127.0.0.1:3307",
-		DBName:               "golang-clean-architecture",
-		AllowNativePasswords: true,
-		Params:               map[string]string{"parseTime": "true"},
-	}
-	fmt.Println(mySqlConfig.FormatDSN())
-
-	db, err := gorm.Open(DBMS, mySqlConfig.FormatDSN())
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return db
-}
+var db *gorm.DB
 
 func main() {
 	config.ReadConfig()
+
+	db = datastore.NewDB()
+
+	defer db.Close()
 
 	r := chi.NewRouter()
 	r.Use(middleware.Recoverer)
@@ -49,19 +35,14 @@ func main() {
 		r.Get("/", getUsers)
 	})
 
-	fmt.Println("Server listen at http://localhost:8080")
+	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
 
-	err := http.ListenAndServe(":8080", r)
-	if err != nil {
+	if err := http.ListenAndServe(":"+config.C.Server.Address, r); err != nil {
 		log.Fatalln(err)
 	}
 }
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
-	db := connectDB()
-
-	defer db.Close()
-
 	var users []model.User
 	db.Debug().Preload("CreditCards").Find(&users)
 

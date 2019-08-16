@@ -1,22 +1,27 @@
 package config
 
 import (
-	"bytes"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/davecgh/go-spew/spew"
 
 	"github.com/spf13/viper"
 )
 
 type config struct {
 	Database struct {
-		Host     string
-		Port     string
-		User     string
-		Password string
-		DBName   string
+		User                 string
+		Password             string
+		Net                  string
+		Addr                 string
+		DBName               string
+		AllowNativePasswords bool
+		Params               struct {
+			ParseTime string
+		}
 	}
 	Server struct {
 		Address string
@@ -30,10 +35,10 @@ func ReadConfig() {
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath(filepath.Join("$GOPATH", "src", "github.com", "manakuro", "golang-clean-architecture", "conf"))
+	viper.AddConfigPath(filepath.Join("$GOPATH", "src", "github.com", "manakuro", "golang-clean-architecture", "config"))
 	viper.AutomaticEnv()
 
-	if err := viper.ReadConfig(bytes.NewBuffer([]byte(``))); err != nil {
+	if err := viper.ReadInConfig(); err != nil {
 		fmt.Println(err)
 		log.Fatalln(err)
 	}
@@ -42,4 +47,6 @@ func ReadConfig() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	spew.Dump(C)
 }
