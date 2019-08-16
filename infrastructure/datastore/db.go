@@ -1,7 +1,6 @@
 package datastore
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/go-sql-driver/mysql"
@@ -22,7 +21,6 @@ func NewDB() *gorm.DB {
 			"parseTime": config.C.Database.Params.ParseTime,
 		},
 	}
-	fmt.Println(mySqlConfig.FormatDSN())
 
 	db, err := gorm.Open(DBMS, mySqlConfig.FormatDSN())
 

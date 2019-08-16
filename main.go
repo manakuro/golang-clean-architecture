@@ -6,14 +6,16 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/manakuro/golang-clean-architecture/registry"
+
+	"github.com/manakuro/golang-clean-architecture/infrastructure/api/router"
+
 	"github.com/jinzhu/gorm"
 
 	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
 
 	"github.com/manakuro/golang-clean-architecture/config"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/manakuro/golang-clean-architecture/domain/model"
 )
@@ -24,19 +26,13 @@ func main() {
 	config.ReadConfig()
 
 	db = datastore.NewDB()
-
 	defer db.Close()
 
-	r := chi.NewRouter()
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.Logger)
+	i := registry.NewInteractor(db)
 
-	r.Route("/users", func(r chi.Router) {
-		r.Get("/", getUsers)
-	})
+	r := router.NewRouter(i.NewAppHandler())
 
 	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
-
 	if err := http.ListenAndServe(":"+config.C.Server.Address, r); err != nil {
 		log.Fatalln(err)
 	}
