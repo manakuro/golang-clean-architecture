@@ -24,6 +24,7 @@ func main() {
 	config.ReadConfig()
 
 	db = datastore.NewDB()
+	db.LogMode(true)
 	defer db.Close()
 
 	i := registry.NewInteractor(db)
