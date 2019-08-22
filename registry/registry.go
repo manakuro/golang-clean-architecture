@@ -3,9 +3,9 @@ package registry
 import (
 	"github.com/jinzhu/gorm"
 	"github.com/manakuro/golang-clean-architecture/infrastructure/api/handler"
-	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
 	"github.com/manakuro/golang-clean-architecture/interface/controllers"
 	"github.com/manakuro/golang-clean-architecture/interface/presenters"
+	ir "github.com/manakuro/golang-clean-architecture/interface/repository"
 	"github.com/manakuro/golang-clean-architecture/usecase/presenter"
 	"github.com/manakuro/golang-clean-architecture/usecase/repository"
 	"github.com/manakuro/golang-clean-architecture/usecase/service"
@@ -40,7 +40,7 @@ func (i *interactor) NewUserService() service.UserService {
 }
 
 func (i *interactor) NewUserRepository() repository.UserRepository {
-	return datastore.NewUserRepository(i.db)
+	return ir.NewUserRepository(i.db)
 }
 
 func (i *interactor) NewUserPresenter() presenter.UserPresenter {
