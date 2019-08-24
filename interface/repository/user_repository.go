@@ -1,4 +1,4 @@
-package datastore
+package repository
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 }
 
 func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
-	err := ur.db.Find(&u).Error
+	err := ur.db.Preload("CreditCards").Find(&u).Error
 
 	if err != nil {
 		return nil, fmt.Errorf("sql error: %s", err)
