@@ -16,27 +16,51 @@ import (
 )
 
 func TestUserRepository_FindAll(t *testing.T) {
-	db, mock, _ := testutil.NewDBMock()
-
+	t.Helper()
+	db, mock, _ := testutil.NewDBMock(t)
 	defer db.Close()
 
 	r := repository.NewUserRepository(db)
 
-	// user
-	u1 := model.User{ID: 1, Name: "manato", Age: "20"}
-	mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}).AddRow(u1.ID, u1.Name, u1.Age))
+	cases := map[string]struct {
+		arrange func(t *testing.T)
+		assert  func(t *testing.T, u []*model.User, err error)
+	}{
+		"正常なSQLのとき": {
+			arrange: func(t *testing.T) {
+				u := model.User{ID: 1, Name: "manato", Age: "20"}
+				c := model.CreditCard{ID: 1, UserID: 1, Number: "111111"}
 
-	// credit card
-	c1 := model.CreditCard{
-		ID:     1,
-		UserID: 1,
-		Number: "111111",
+				mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}).AddRow(u.ID, u.Name, u.Age))
+				mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "number"}).AddRow(c.ID, c.UserID, c.Number))
+			},
+			assert: func(t *testing.T, u []*model.User, err error) {
+				assert.Nil(t, err)
+				assert.Equal(t, 1, len(u))
+				assert.NotEmpty(t, u[0].CreditCards)
+			},
+		},
+		"エラーのSQLのとき": {
+			arrange: func(t *testing.T) {
+				u := model.User{ID: 1, Name: "manato", Age: "20"}
+				c := model.CreditCard{ID: 1, UserID: 1, Number: "111111"}
+
+				mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "name", "age"}).AddRow(u.ID, u.Name, u.Age))
+				mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "number"}).AddRow(c.ID, c.UserID, c.Number))
+			},
+			assert: func(t *testing.T, u []*model.User, err error) {
+				//assert.NotEmpty(t, err)
+			},
+		},
 	}
-	mock.ExpectQuery(regexp.QuoteMeta(`SELECT *`)).WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "number"}).AddRow(c1.ID, c1.UserID, c1.Number))
 
-	u, err := r.FindAll([]*model.User{})
+	for k, tt := range cases {
+		t.Run(k, func(t *testing.T) {
+			tt.arrange(t)
 
-	assert.Nil(t, err)
-	assert.Equal(t, 1, len(u))
-	assert.NotEmpty(t, u[0].CreditCards)
+			u, err := r.FindAll([]*model.User{})
+
+			tt.assert(t, u, err)
+		})
+	}
 }
