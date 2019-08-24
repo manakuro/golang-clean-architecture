@@ -15,12 +15,20 @@ import (
 	"github.com/DATA-DOG/go-sqlmock"
 )
 
+func setup(t *testing.T) (r repository.UserRepository, mock sqlmock.Sqlmock, teardown func()) {
+	db, mock, _ := testutil.NewDBMock(t)
+
+	r = repository.NewUserRepository(db)
+
+	return r, mock, func() {
+		db.Close()
+	}
+}
+
 func TestUserRepository_FindAll(t *testing.T) {
 	t.Helper()
-	db, mock, _ := testutil.NewDBMock(t)
-	defer db.Close()
-
-	r := repository.NewUserRepository(db)
+	r, mock, teardown := setup(t)
+	defer teardown()
 
 	cases := map[string]struct {
 		arrange func(t *testing.T)
