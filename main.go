@@ -26,7 +26,7 @@ func main() {
 	i := registry.NewInteractor(db)
 
 	e := echo.New()
-	e = router.NewRouter(e, i.NewAppHandler())
+	e = router.NewRouter(e, i.NewAppController())
 
 	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
 	if err := e.Start(":" + config.C.Server.Address); err != nil {

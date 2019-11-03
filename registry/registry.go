@@ -2,7 +2,7 @@ package registry
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/manakuro/golang-clean-architecture/infrastructure/api/handler"
+	"github.com/manakuro/golang-clean-architecture/interface/controllers"
 )
 
 type interactor struct {
@@ -10,13 +10,13 @@ type interactor struct {
 }
 
 type Interactor interface {
-	NewAppHandler() handler.AppHandler
+	NewAppController() controllers.AppController
 }
 
 func NewInteractor(db *gorm.DB) Interactor {
 	return &interactor{db}
 }
 
-func (i *interactor) NewAppHandler() handler.AppHandler {
-	return i.NewUserHandler()
+func (i *interactor) NewAppController() controllers.AppController {
+	return i.NewUserController()
 }

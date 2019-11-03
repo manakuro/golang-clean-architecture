@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/manakuro/golang-clean-architecture/domain/model"
 	"github.com/manakuro/golang-clean-architecture/usecase/service"
 )
@@ -10,20 +12,20 @@ type userController struct {
 }
 
 type UserController interface {
-	GetUsers() ([]*model.User, error)
+	GetUsers(c Context) error
 }
 
 func NewUserController(us service.UserService) UserController {
 	return &userController{us}
 }
 
-func (uc *userController) GetUsers() ([]*model.User, error) {
+func (uc *userController) GetUsers(c Context) error {
 	var u []*model.User
 
-	us, err := uc.userService.Get(u)
+	u, err := uc.userService.Get(u)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return us, nil
+	return c.JSON(http.StatusOK, u)
 }

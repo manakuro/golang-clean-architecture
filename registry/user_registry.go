@@ -1,7 +1,6 @@
 package registry
 
 import (
-	"github.com/manakuro/golang-clean-architecture/infrastructure/api/handler"
 	"github.com/manakuro/golang-clean-architecture/interface/controllers"
 	"github.com/manakuro/golang-clean-architecture/interface/presenters"
 	ir "github.com/manakuro/golang-clean-architecture/interface/repository"
@@ -9,10 +8,6 @@ import (
 	"github.com/manakuro/golang-clean-architecture/usecase/repository"
 	"github.com/manakuro/golang-clean-architecture/usecase/service"
 )
-
-func (i *interactor) NewUserHandler() handler.UserHandler {
-	return handler.NewUserHandler(i.NewUserController())
-}
 
 func (i *interactor) NewUserController() controllers.UserController {
 	return controllers.NewUserController(i.NewUserService())
