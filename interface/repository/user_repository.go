@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
 	"github.com/manakuro/golang-clean-architecture/domain/model"
 )
@@ -23,7 +21,7 @@ func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
 	err := ur.db.Find(&u).Error
 
 	if err != nil {
-		return nil, fmt.Errorf("sql error: %s", err)
+		return nil, err
 	}
 
 	return u, nil
