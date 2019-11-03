@@ -1,19 +1,16 @@
 package router
 
 import (
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/manakuro/golang-clean-architecture/infrastructure/api/handler"
 )
 
-func NewRouter(handler handler.AppHandler) *chi.Mux {
-	r := chi.NewRouter()
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.Logger)
+func NewRouter(e *echo.Echo, handler handler.AppHandler) *echo.Echo {
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	r.Route("/users", func(r chi.Router) {
-		r.Get("/", handler.GetUsers)
-	})
+	e.GET("/users", handler.GetUsers)
 
-	return r
+	return e
 }

@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/labstack/echo"
 
 	"github.com/manakuro/golang-clean-architecture/config"
 	"github.com/manakuro/golang-clean-architecture/infrastructure/api/router"
@@ -25,10 +25,11 @@ func main() {
 
 	i := registry.NewInteractor(db)
 
-	r := router.NewRouter(i.NewAppHandler())
+	e := echo.New()
+	e = router.NewRouter(e, i.NewAppHandler())
 
 	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
-	if err := http.ListenAndServe(":"+config.C.Server.Address, r); err != nil {
+	if err := e.Start(":" + config.C.Server.Address); err != nil {
 		log.Fatalln(err)
 	}
 }
