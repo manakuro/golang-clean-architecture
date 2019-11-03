@@ -5,17 +5,13 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/manakuro/golang-clean-architecture/registry"
-
-	"github.com/manakuro/golang-clean-architecture/infrastructure/api/router"
-
 	"github.com/jinzhu/gorm"
-
-	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 
 	"github.com/manakuro/golang-clean-architecture/config"
-
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/manakuro/golang-clean-architecture/infrastructure/api/router"
+	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
+	"github.com/manakuro/golang-clean-architecture/registry"
 )
 
 var db *gorm.DB
