@@ -9,8 +9,8 @@ import (
 	"github.com/labstack/echo"
 
 	"github.com/manakuro/golang-clean-architecture/config"
-	"github.com/manakuro/golang-clean-architecture/infrastructure/api/router"
 	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
+	"github.com/manakuro/golang-clean-architecture/infrastructure/router"
 	"github.com/manakuro/golang-clean-architecture/registry"
 )
 

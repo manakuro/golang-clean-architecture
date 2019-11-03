@@ -1,5 +1,5 @@
 package controllers
 
-import "github.com/labstack/echo"
-
-type Context = echo.Context
+type Context interface {
+	JSON(code int, i interface{}) error
+}
