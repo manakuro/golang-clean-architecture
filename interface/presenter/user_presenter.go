@@ -1,4 +1,4 @@
-package presenters
+package presenter
 
 import "github.com/manakuro/golang-clean-architecture/domain/model"
 
