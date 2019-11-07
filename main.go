@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/labstack/echo"
 
@@ -14,12 +13,10 @@ import (
 	"github.com/manakuro/golang-clean-architecture/registry"
 )
 
-var db *gorm.DB
-
 func main() {
 	config.ReadConfig()
 
-	db = datastore.NewDB()
+	db := datastore.NewDB()
 	db.LogMode(true)
 	defer db.Close()
 
