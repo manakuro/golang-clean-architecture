@@ -4,23 +4,23 @@ import (
 	"github.com/manakuro/golang-clean-architecture/interface/controllers"
 	"github.com/manakuro/golang-clean-architecture/interface/presenters"
 	ir "github.com/manakuro/golang-clean-architecture/interface/repository"
+	"github.com/manakuro/golang-clean-architecture/usecase/interactor"
 	"github.com/manakuro/golang-clean-architecture/usecase/presenter"
-	"github.com/manakuro/golang-clean-architecture/usecase/repository"
-	"github.com/manakuro/golang-clean-architecture/usecase/service"
+	ur "github.com/manakuro/golang-clean-architecture/usecase/repository"
 )
 
-func (i *interactor) NewUserController() controllers.UserController {
-	return controllers.NewUserController(i.NewUserService())
+func (r *registry) NewUserController() controllers.UserController {
+	return controllers.NewUserController(r.NewUserInteractor())
 }
 
-func (i *interactor) NewUserService() service.UserService {
-	return service.NewUserService(i.NewUserRepository(), i.NewUserPresenter())
+func (r *registry) NewUserInteractor() interactor.UserInteractor {
+	return interactor.NewUserInteractor(r.NewUserRepository(), r.NewUserPresenter())
 }
 
-func (i *interactor) NewUserRepository() repository.UserRepository {
-	return ir.NewUserRepository(i.db)
+func (r *registry) NewUserRepository() ur.UserRepository {
+	return ir.NewUserRepository(r.db)
 }
 
-func (i *interactor) NewUserPresenter() presenter.UserPresenter {
+func (r *registry) NewUserPresenter() presenter.UserPresenter {
 	return presenters.NewUserPresenter()
 }

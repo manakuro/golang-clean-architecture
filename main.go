@@ -23,10 +23,10 @@ func main() {
 	db.LogMode(true)
 	defer db.Close()
 
-	i := registry.NewInteractor(db)
+	r := registry.NewRegistry(db)
 
 	e := echo.New()
-	e = router.NewRouter(e, i.NewAppController())
+	e = router.NewRouter(e, r.NewAppController())
 
 	fmt.Println("Server listen at http://localhost" + ":" + config.C.Server.Address)
 	if err := e.Start(":" + config.C.Server.Address); err != nil {

@@ -5,18 +5,18 @@ import (
 	"github.com/manakuro/golang-clean-architecture/interface/controllers"
 )
 
-type interactor struct {
+type registry struct {
 	db *gorm.DB
 }
 
-type Interactor interface {
+type Registry interface {
 	NewAppController() controllers.AppController
 }
 
-func NewInteractor(db *gorm.DB) Interactor {
-	return &interactor{db}
+func NewRegistry(db *gorm.DB) Registry {
+	return &registry{db}
 }
 
-func (i *interactor) NewAppController() controllers.AppController {
-	return i.NewUserController()
+func (r *registry) NewAppController() controllers.AppController {
+	return r.NewUserController()
 }

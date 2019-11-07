@@ -1,4 +1,4 @@
-package service
+package interactor
 
 import (
 	"github.com/manakuro/golang-clean-architecture/domain/model"
@@ -6,20 +6,20 @@ import (
 	"github.com/manakuro/golang-clean-architecture/usecase/repository"
 )
 
-type userService struct {
+type userInteractor struct {
 	UserRepository repository.UserRepository
 	UserPresenter  presenter.UserPresenter
 }
 
-type UserService interface {
+type UserInteractor interface {
 	Get(u []*model.User) ([]*model.User, error)
 }
 
-func NewUserService(r repository.UserRepository, p presenter.UserPresenter) UserService {
-	return &userService{r, p}
+func NewUserInteractor(r repository.UserRepository, p presenter.UserPresenter) UserInteractor {
+	return &userInteractor{r, p}
 }
 
-func (us *userService) Get(u []*model.User) ([]*model.User, error) {
+func (us *userInteractor) Get(u []*model.User) ([]*model.User, error) {
 	u, err := us.UserRepository.FindAll(u)
 	if err != nil {
 		return nil, err

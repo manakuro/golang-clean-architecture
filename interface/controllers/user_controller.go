@@ -4,25 +4,25 @@ import (
 	"net/http"
 
 	"github.com/manakuro/golang-clean-architecture/domain/model"
-	"github.com/manakuro/golang-clean-architecture/usecase/service"
+	"github.com/manakuro/golang-clean-architecture/usecase/interactor"
 )
 
 type userController struct {
-	userService service.UserService
+	userInteractor interactor.UserInteractor
 }
 
 type UserController interface {
 	GetUsers(c Context) error
 }
 
-func NewUserController(us service.UserService) UserController {
+func NewUserController(us interactor.UserInteractor) UserController {
 	return &userController{us}
 }
 
 func (uc *userController) GetUsers(c Context) error {
 	var u []*model.User
 
-	u, err := uc.userService.Get(u)
+	u, err := uc.userInteractor.Get(u)
 	if err != nil {
 		return err
 	}
