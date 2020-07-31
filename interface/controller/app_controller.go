@@ -1,5 +1,5 @@
 package controller
 
-type AppController interface {
-	UserController
+type AppController struct {
+	User interface{ UserController }
 }

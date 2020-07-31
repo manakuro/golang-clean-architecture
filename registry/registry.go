@@ -18,5 +18,7 @@ func NewRegistry(db *gorm.DB) Registry {
 }
 
 func (r *registry) NewAppController() controller.AppController {
-	return r.NewUserController()
+	return controller.AppController{
+		User: r.NewUserController(),
+	}
 }
