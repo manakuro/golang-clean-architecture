@@ -3,6 +3,8 @@ package controller
 import (
 	"net/http"
 
+	"github.com/manakuro/golang-clean-architecture/api"
+
 	"github.com/manakuro/golang-clean-architecture/domain/model"
 	"github.com/manakuro/golang-clean-architecture/usecase/interactor"
 )
@@ -27,5 +29,23 @@ func (uc *userController) GetUsers(c Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, u)
+	// mapping []*model.User to []*api.User here
+	us := mapUser(u)
+
+	return c.JSON(http.StatusOK, us)
+}
+
+func mapUser(us []*model.User) []*api.User {
+	result := make([]*api.User, len(us))
+
+	for i, v := range us {
+		au := api.User{
+			ID:   v.ID,
+			Name: v.Name,
+			Age:  v.Age,
+		}
+		result[i] = &au
+	}
+
+	return result
 }

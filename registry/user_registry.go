@@ -14,7 +14,7 @@ func (r *registry) NewUserController() controller.UserController {
 }
 
 func (r *registry) NewUserInteractor() interactor.UserInteractor {
-	return interactor.NewUserInteractor(r.NewUserRepository(), r.NewUserPresenter())
+	return interactor.NewUserInteractor(r.NewUserRepository())
 }
 
 func (r *registry) NewUserRepository() ur.UserRepository {
