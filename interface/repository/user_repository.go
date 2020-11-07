@@ -2,6 +2,7 @@ package repository
 
 import (
 	"golang-clean-architecture/domain/model"
+	"golang-clean-architecture/usecase/repository"
 
 	"github.com/jinzhu/gorm"
 )
@@ -10,11 +11,7 @@ type userRepository struct {
 	db *gorm.DB
 }
 
-type UserRepository interface {
-	FindAll(u []*model.User) ([]*model.User, error)
-}
-
-func NewUserRepository(db *gorm.DB) UserRepository {
+func NewUserRepository(db *gorm.DB) repository.UserRepository {
 	return &userRepository{db}
 }
 

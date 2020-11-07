@@ -1,15 +1,13 @@
 package presenter
 
-import "golang-clean-architecture/domain/model"
+import (
+	"golang-clean-architecture/domain/model"
+	"golang-clean-architecture/usecase/presenter"
+)
 
-type userPresenter struct {
-}
+type userPresenter struct{}
 
-type UserPresenter interface {
-	ResponseUsers(us []*model.User) []*model.User
-}
-
-func NewUserPresenter() UserPresenter {
+func NewUserPresenter() presenter.UserPresenter {
 	return &userPresenter{}
 }
 
