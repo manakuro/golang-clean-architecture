@@ -1,4 +1,4 @@
-module github.com/manakuro/golang-clean-architecture
+module golang-clean-architecture
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.3.3
@@ -12,6 +12,7 @@ require (
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.3.0
 	github.com/magiconair/properties v1.8.1
+	github.com/manakuro/golang-clean-architecture v0.0.0-20200731113100-1c9b1ca29b08 // indirect
 	github.com/mattn/go-colorable v0.1.4
 	github.com/mattn/go-isatty v0.0.10
 	github.com/mitchellh/mapstructure v1.1.2
@@ -32,3 +33,5 @@ require (
 	google.golang.org/appengine v1.6.1
 	gopkg.in/yaml.v2 v2.2.2
 )
+
+go 1.13

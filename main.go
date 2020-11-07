@@ -7,10 +7,10 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/labstack/echo"
 
-	"github.com/manakuro/golang-clean-architecture/config"
-	"github.com/manakuro/golang-clean-architecture/infrastructure/datastore"
-	"github.com/manakuro/golang-clean-architecture/infrastructure/router"
-	"github.com/manakuro/golang-clean-architecture/registry"
+	"golang-clean-architecture/config"
+	"golang-clean-architecture/infrastructure/datastore"
+	"golang-clean-architecture/infrastructure/router"
+	"golang-clean-architecture/registry"
 )
 
 func main() {

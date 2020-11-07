@@ -1,8 +1,9 @@
 package repository
 
 import (
+	"golang-clean-architecture/domain/model"
+
 	"github.com/jinzhu/gorm"
-	"github.com/manakuro/golang-clean-architecture/domain/model"
 )
 
 type userRepository struct {

@@ -1,12 +1,12 @@
 package registry
 
 import (
-	"github.com/manakuro/golang-clean-architecture/interface/controller"
-	ip "github.com/manakuro/golang-clean-architecture/interface/presenter"
-	ir "github.com/manakuro/golang-clean-architecture/interface/repository"
-	"github.com/manakuro/golang-clean-architecture/usecase/interactor"
-	up "github.com/manakuro/golang-clean-architecture/usecase/presenter"
-	ur "github.com/manakuro/golang-clean-architecture/usecase/repository"
+	"golang-clean-architecture/interface/controller"
+	ip "golang-clean-architecture/interface/presenter"
+	ir "golang-clean-architecture/interface/repository"
+	"golang-clean-architecture/usecase/interactor"
+	up "golang-clean-architecture/usecase/presenter"
+	ur "golang-clean-architecture/usecase/repository"
 )
 
 func (r *registry) NewUserController() controller.UserController {

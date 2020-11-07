@@ -1,8 +1,9 @@
 package registry
 
 import (
+	"golang-clean-architecture/interface/controller"
+
 	"github.com/jinzhu/gorm"
-	"github.com/manakuro/golang-clean-architecture/interface/controller"
 )
 
 type registry struct {
