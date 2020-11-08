@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"net/http"
 
 	"golang-clean-architecture/domain/model"
@@ -13,6 +14,7 @@ type userController struct {
 
 type UserController interface {
 	GetUsers(c Context) error
+	CreateUser(c Context) error
 }
 
 func NewUserController(us interactor.UserInteractor) UserController {
@@ -28,4 +30,19 @@ func (uc *userController) GetUsers(c Context) error {
 	}
 
 	return c.JSON(http.StatusOK, u)
+}
+
+func (uc *userController) CreateUser(c Context) error {
+	var params model.User
+
+	if err := c.Bind(&params); !errors.Is(err, nil) {
+		return err
+	}
+
+	u, err := uc.userInteractor.Create(&params)
+	if !errors.Is(err, nil) {
+		return err
+	}
+
+	return c.JSON(http.StatusCreated, u)
 }

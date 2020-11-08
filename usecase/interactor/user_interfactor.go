@@ -13,6 +13,7 @@ type userInteractor struct {
 
 type UserInteractor interface {
 	Get(u []*model.User) ([]*model.User, error)
+	Create(u *model.User) (*model.User, error)
 }
 
 func NewUserInteractor(r repository.UserRepository, p presenter.UserPresenter) UserInteractor {
@@ -26,4 +27,10 @@ func (us *userInteractor) Get(u []*model.User) ([]*model.User, error) {
 	}
 
 	return us.UserPresenter.ResponseUsers(u), nil
+}
+
+func (us *userInteractor) Create(u *model.User) (*model.User, error) {
+	u, err := us.UserRepository.Create(u)
+
+	return u, err
 }
