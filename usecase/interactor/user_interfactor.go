@@ -1,6 +1,7 @@
 package interactor
 
 import (
+	"errors"
 	"golang-clean-architecture/domain/model"
 	"golang-clean-architecture/usecase/presenter"
 	"golang-clean-architecture/usecase/repository"
@@ -9,6 +10,7 @@ import (
 type userInteractor struct {
 	UserRepository repository.UserRepository
 	UserPresenter  presenter.UserPresenter
+	DBRepository   repository.DBRepository
 }
 
 type UserInteractor interface {
@@ -16,8 +18,8 @@ type UserInteractor interface {
 	Create(u *model.User) (*model.User, error)
 }
 
-func NewUserInteractor(r repository.UserRepository, p presenter.UserPresenter) UserInteractor {
-	return &userInteractor{r, p}
+func NewUserInteractor(r repository.UserRepository, p presenter.UserPresenter, d repository.DBRepository) UserInteractor {
+	return &userInteractor{r, p, d}
 }
 
 func (us *userInteractor) Get(u []*model.User) ([]*model.User, error) {
@@ -30,7 +32,23 @@ func (us *userInteractor) Get(u []*model.User) ([]*model.User, error) {
 }
 
 func (us *userInteractor) Create(u *model.User) (*model.User, error) {
-	u, err := us.UserRepository.Create(u)
+	data, err := us.DBRepository.Transaction(func(i interface{}) (interface{}, error) {
+		u, err := us.UserRepository.Create(u)
 
-	return u, err
+		// do mailing
+		// do logging
+		// do another process
+		return u, err
+	})
+	user, ok := data.(*model.User)
+
+	if !ok {
+		return nil, errors.New("cast error")
+	}
+
+	if !errors.Is(err, nil) {
+		return nil, err
+	}
+
+	return user, nil
 }
