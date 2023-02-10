@@ -2,3 +2,5 @@
 *.iml
 gin-bin
 vendor
+
+tmp

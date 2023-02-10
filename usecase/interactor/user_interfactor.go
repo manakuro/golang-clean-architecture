@@ -46,7 +46,7 @@ func (us *userInteractor) Create(u *model.User) (*model.User, error) {
 		return nil, errors.New("cast error")
 	}
 
-	if !errors.Is(err, nil) {
+	if err != nil {
 		return nil, err
 	}
 

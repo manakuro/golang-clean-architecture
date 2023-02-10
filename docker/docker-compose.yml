@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mysql:
+    #    image: mysql@sha256:43bf7db32d11e75d8463a8bc077f09af5fb5b84b182b1d74124ddca633093bfa
+    platform: linux/x86_64
+    image: mysql:8.0.23
+    volumes:
+      - mysql-data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_as_ci --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+    ports:
+      - '3306:3306'
+volumes:
+  mysql-data:
+    driver: local

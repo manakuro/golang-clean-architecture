@@ -1,9 +1,27 @@
 # golang-clean-architecture
 Go with Clean Architecture
 
-## Usage
+## Run Docker
 
-start server
-```.sh
-$ ./start_server
+```
+$ cd docker
+$ docker compose up
+```
+
+## Installation
+
+```
+$ make install
+```
+
+## Set up database
+
+```
+$ make setup_db
+```
+
+## Start server
+
+```
+$ make start
 ```
