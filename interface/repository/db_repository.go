@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"golang-clean-architecture/usecase/repository"
 	"log"
 
@@ -18,7 +17,7 @@ func NewDBRepository(db *gorm.DB) repository.DBRepository {
 
 func (r *dbRepository) Transaction(txFunc func(interface{}) (interface{}, error)) (data interface{}, err error) {
 	tx := r.db.Begin()
-	if !errors.Is(tx.Error, nil) {
+	if tx.Error != nil {
 		return nil, tx.Error
 	}
 
@@ -27,7 +26,7 @@ func (r *dbRepository) Transaction(txFunc func(interface{}) (interface{}, error)
 			log.Print("recover")
 			tx.Rollback()
 			panic(p)
-		} else if !errors.Is(err, nil) {
+		} else if err != nil {
 			log.Print("rollback")
 			tx.Rollback()
 			panic("error")

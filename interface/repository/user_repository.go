@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"golang-clean-architecture/domain/model"
 	"golang-clean-architecture/usecase/repository"
 
@@ -27,7 +26,7 @@ func (ur *userRepository) FindAll(u []*model.User) ([]*model.User, error) {
 }
 
 func (ur *userRepository) Create(u *model.User) (*model.User, error) {
-	if err := ur.db.Create(u).Error; !errors.Is(err, nil) {
+	if err := ur.db.Create(u).Error; err != nil {
 		return nil, err
 	}
 

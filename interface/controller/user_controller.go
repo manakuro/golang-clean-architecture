@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"errors"
 	"net/http"
 
 	"golang-clean-architecture/domain/model"
@@ -35,12 +34,12 @@ func (uc *userController) GetUsers(c Context) error {
 func (uc *userController) CreateUser(c Context) error {
 	var params model.User
 
-	if err := c.Bind(&params); !errors.Is(err, nil) {
+	if err := c.Bind(&params); err != nil {
 		return err
 	}
 
 	u, err := uc.userInteractor.Create(&params)
-	if !errors.Is(err, nil) {
+	if err != nil {
 		return err
 	}
 
