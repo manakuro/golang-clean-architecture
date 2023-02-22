@@ -2,9 +2,9 @@ package interactor
 
 import (
 	"errors"
-	"golang-clean-architecture/domain/model"
-	"golang-clean-architecture/usecase/presenter"
-	"golang-clean-architecture/usecase/repository"
+	"golang-clean-architecture/pkg/domain/model"
+	"golang-clean-architecture/pkg/usecase/presenter"
+	"golang-clean-architecture/pkg/usecase/repository"
 )
 
 type userInteractor struct {

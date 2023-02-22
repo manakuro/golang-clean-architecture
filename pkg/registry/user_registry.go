@@ -1,10 +1,10 @@
 package registry
 
 import (
-	"golang-clean-architecture/interface/controller"
-	ip "golang-clean-architecture/interface/presenter"
-	ir "golang-clean-architecture/interface/repository"
-	"golang-clean-architecture/usecase/interactor"
+	"golang-clean-architecture/pkg/interface/controller"
+	ip "golang-clean-architecture/pkg/interface/presenter"
+	ir "golang-clean-architecture/pkg/interface/repository"
+	"golang-clean-architecture/pkg/usecase/interactor"
 )
 
 func (r *registry) NewUserController() controller.UserController {

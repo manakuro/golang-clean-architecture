@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"golang-clean-architecture/domain/model"
-	"golang-clean-architecture/usecase/repository"
+	"golang-clean-architecture/pkg/domain/model"
+	"golang-clean-architecture/pkg/usecase/repository"
 
 	"github.com/jinzhu/gorm"
 )

@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"golang-clean-architecture/domain/model"
-	"golang-clean-architecture/usecase/interactor"
+	"golang-clean-architecture/pkg/domain/model"
+	"golang-clean-architecture/pkg/usecase/interactor"
 )
 
 type userController struct {

@@ -3,7 +3,7 @@ package datastore
 import (
 	"log"
 
-	"golang-clean-architecture/config"
+	"golang-clean-architecture/pkg/config"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

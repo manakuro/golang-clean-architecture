@@ -1,6 +1,6 @@
 package repository
 
-import "golang-clean-architecture/domain/model"
+import "golang-clean-architecture/pkg/domain/model"
 
 type UserRepository interface {
 	FindAll(u []*model.User) ([]*model.User, error)

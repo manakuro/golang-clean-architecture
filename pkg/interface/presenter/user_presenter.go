@@ -1,8 +1,8 @@
 package presenter
 
 import (
-	"golang-clean-architecture/domain/model"
-	"golang-clean-architecture/usecase/presenter"
+	"golang-clean-architecture/pkg/domain/model"
+	"golang-clean-architecture/pkg/usecase/presenter"
 )
 
 type userPresenter struct{}
