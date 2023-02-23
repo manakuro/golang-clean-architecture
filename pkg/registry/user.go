@@ -7,10 +7,10 @@ import (
 )
 
 func (r *registry) NewUserController() controller.User {
-	userInteractor := usecase.NewUserUsecase(
+	u := usecase.NewUserUsecase(
 		repository.NewUserRepository(r.db),
 		repository.NewDBRepository(r.db),
 	)
 
-	return controller.NewUserController(userInteractor)
+	return controller.NewUserController(u)
 }

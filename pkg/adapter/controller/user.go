@@ -23,7 +23,7 @@ func NewUserController(us usecase.User) User {
 func (uc *userController) GetUsers(c Context) error {
 	var u []*model.User
 
-	u, err := uc.userUsecase.Get(u)
+	u, err := uc.userUsecase.List(u)
 	if err != nil {
 		return err
 	}

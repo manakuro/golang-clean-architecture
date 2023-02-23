@@ -12,7 +12,7 @@ type userUsecase struct {
 }
 
 type User interface {
-	Get(u []*model.User) ([]*model.User, error)
+	List(u []*model.User) ([]*model.User, error)
 	Create(u *model.User) (*model.User, error)
 }
 
@@ -20,7 +20,7 @@ func NewUserUsecase(r repository.UserRepository, d repository.DBRepository) User
 	return &userUsecase{r, d}
 }
 
-func (uu *userUsecase) Get(u []*model.User) ([]*model.User, error) {
+func (uu *userUsecase) List(u []*model.User) ([]*model.User, error) {
 	u, err := uu.UserRepository.FindAll(u)
 	if err != nil {
 		return nil, err
