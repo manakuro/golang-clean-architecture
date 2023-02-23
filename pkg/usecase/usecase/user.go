@@ -7,8 +7,8 @@ import (
 )
 
 type userUsecase struct {
-	UserRepository repository.UserRepository
-	DBRepository   repository.DBRepository
+	userRepository repository.UserRepository
+	dBRepository   repository.DBRepository
 }
 
 type User interface {
@@ -21,7 +21,7 @@ func NewUserUsecase(r repository.UserRepository, d repository.DBRepository) User
 }
 
 func (uu *userUsecase) List(u []*model.User) ([]*model.User, error) {
-	u, err := uu.UserRepository.FindAll(u)
+	u, err := uu.userRepository.FindAll(u)
 	if err != nil {
 		return nil, err
 	}
@@ -30,8 +30,8 @@ func (uu *userUsecase) List(u []*model.User) ([]*model.User, error) {
 }
 
 func (uu *userUsecase) Create(u *model.User) (*model.User, error) {
-	data, err := uu.DBRepository.Transaction(func(i interface{}) (interface{}, error) {
-		u, err := uu.UserRepository.Create(u)
+	data, err := uu.dBRepository.Transaction(func(i interface{}) (interface{}, error) {
+		u, err := uu.userRepository.Create(u)
 
 		// do mailing
 		// do logging

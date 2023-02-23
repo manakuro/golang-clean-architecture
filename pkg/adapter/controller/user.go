@@ -20,7 +20,7 @@ func NewUserController(us usecase.User) User {
 	return &userController{us}
 }
 
-func (uc *userController) GetUsers(c Context) error {
+func (uc *userController) GetUsers(ctx Context) error {
 	var u []*model.User
 
 	u, err := uc.userUsecase.List(u)
@@ -28,13 +28,13 @@ func (uc *userController) GetUsers(c Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, u)
+	return ctx.JSON(http.StatusOK, u)
 }
 
-func (uc *userController) CreateUser(c Context) error {
+func (uc *userController) CreateUser(ctx Context) error {
 	var params model.User
 
-	if err := c.Bind(&params); err != nil {
+	if err := ctx.Bind(&params); err != nil {
 		return err
 	}
 
@@ -43,5 +43,5 @@ func (uc *userController) CreateUser(c Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusCreated, u)
+	return ctx.JSON(http.StatusCreated, u)
 }
