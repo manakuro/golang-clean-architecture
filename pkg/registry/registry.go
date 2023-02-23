@@ -1,7 +1,7 @@
 package registry
 
 import (
-	"golang-clean-architecture/pkg/interface/controller"
+	"golang-clean-architecture/pkg/adapter/controller"
 
 	"github.com/jinzhu/gorm"
 )
