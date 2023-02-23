@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"golang-clean-architecture/usecase/repository"
+	"golang-clean-architecture/pkg/usecase/repository"
 	"log"
 
 	"github.com/jinzhu/gorm"
