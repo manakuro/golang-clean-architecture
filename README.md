@@ -20,6 +20,18 @@ $ make install
 $ make setup_db
 ```
 
+## Migrate schema
+
+```
+$ make migrate_schema_up
+```
+
+## Seed data
+
+```
+$ make seed
+```
+
 ## Start server
 
 ```

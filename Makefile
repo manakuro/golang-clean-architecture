@@ -24,4 +24,7 @@ migrate_schema_reset:
 migrate_schema_status:
 	goose -dir=db/migrations/ mysql "root:root@tcp(127.0.0.1:3306)/golang_clean_architecture" status
 
-.PHONY: install setup_db start migrate_schema
+seed:
+	go run ./cmd/seed/main.go
+
+.PHONY: install setup_db start migrate_schema seed
