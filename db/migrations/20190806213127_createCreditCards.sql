@@ -13,6 +13,6 @@ CREATE TABLE credit_cards (
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='credit card';
 
 -- +goose Down
-DROP TABLE credit_cards
+DROP TABLE credit_cards;
 -- SQL section 'Down' is executed when this migration is rolled back
 
